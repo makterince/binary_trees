@@ -1,4 +1,34 @@
 #include "binary_trees.h"
+#include <stdio.h>
+/**
+ *max_value - gets the value greater among two values
+ *@a: parameter
+ *@b: parameter
+ *Return: bigger value
+ */
+int max_value(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
+}
+/**
+ *get_height - gets the height of a binary tree
+ *@tree: binary tree
+ *Return: max value plus 1
+ */
+size_t get_height(const binary_tree_t *tree)
+{
+	if (tree != NULL)
+	{
+		return ((max_value(get_height(tree->left),
+					get_height(tree->right))) + 1);
+	}
+	else
+		return (0);
+}
+
 /**
  *binary_tree_height - measures the height of a binary tree by the number
  *children in the tree
@@ -10,11 +40,5 @@ size_t binary_tree_height(const binary_tree_t *tree)
 	if (tree == NULL)
 		return (0);
 
-	size_t leftHeight = binary_tree_height(tree->left);
-	size_t rightHeight = binary_tree_height(tree->right);
-
-	if (leftHeight > rightHeight)
-		return (leftHeight + 1);
-	else
-		return (rightHeight + 1);
+	return (get_height(tree) - 1);
 }
